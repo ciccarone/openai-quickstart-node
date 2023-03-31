@@ -6,6 +6,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
+  console.log(req);
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -18,12 +19,14 @@ export default async function (req, res) {
   const child = req.body.child || '';
   const moral = req.body.moral || '';
   const holiday = req.body.holiday || '';
+  const shape = req.body.shape || '';
 
 
   try {
+    
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: generatePrompt(child, moral, holiday),
+      prompt: generatePrompt(child, moral, holiday, shape),
       temperature: 0.9,
       max_tokens: 100
     });
@@ -44,12 +47,23 @@ export default async function (req, res) {
   }
 }
 
-function generatePrompt(child, moral, holiday) {
+function generatePrompt(child, moral, holiday, shape) {
   
+  var prompt_string = '';
+
+  if (moral.toLowerCase().indexOf("select") === -1 ) {
+    var prompt_string = `Moral of story: ${moral}`;
+  }
+  if (holiday.toLowerCase().indexOf("select") === -1 ) {
+    var prompt_string = `Holiday: ${holiday}`;
+  }
+  if (shape.toLowerCase().indexOf("select") === -1 ) {
+    var prompt_string = `Shape Learn: ${shape}`;
+  }
+
   return `Make very short bedtime story based on information:
 
 Child name: ${child}
-Moral: ${moral}
-Holi: ${holiday}
+${prompt_string}
 `;
 }

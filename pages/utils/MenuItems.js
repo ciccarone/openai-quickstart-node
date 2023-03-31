@@ -56,10 +56,6 @@ export const holidayMenuItems = [
     content: "Cinco de Mayo",
   },
   {
-    key: "Independence Day(for other countries)",
-    content: "Independence Day(for other countries)",
-  },
-  {
     key: "Labor Day",
     content: "Labor Day",
   },
@@ -94,5 +90,119 @@ export const holidayMenuItems = [
   {
     key: "World Animal Day",
     content: "World Animal Day",
+  },
+];
+
+
+export const moralMenuItems = [
+  {
+    key: "Honesty",
+    content: "Honesty"
+  },
+  {
+    key: "Respect",
+    content: "Respect"
+  },
+  {
+    key: "Sharing",
+    content: "Sharing"
+  },
+  {
+    key: "Listening",
+    content: "Listening"
+  },
+  {
+    key: "Work",
+    content: "Hard Work"
+  },
+  {
+    key: "Resilience",
+    content: "Resilience"
+  },
+  {
+    key: "Judging",
+    content: "Not Judging"
+  },
+  {
+    key: "Sorry",
+    content: "Saying Sorry"
+  },
+  {
+    key: "Responsibility",
+    content: "Responsibility"
+  },
+  {
+    key: "Grateful",
+    content: "Being Grateful"
+  },
+  {
+    key: "Help",
+    content: "Asking For Help"
+  },
+  {
+    key: "Faith",
+    content: "Having Faith"
+  },
+  {
+    key: "Confidence",
+    content: "Confidence"
+  },
+  {
+    key: "Truthfulness",
+    content: "Truthfulness"
+  },
+  {
+    key: "Kindness",
+    content: "Kindness"
+  },
+  {
+    key: "Patience",
+    content: "Patience"
+  },
+  {
+    key: "Safety",
+    content: "Safety"
+  },
+  {
+    key: "Appreciation",
+    content: "Appreciation"
+  }
+];
+
+
+
+export const shapeMenuItems = [
+
+  {
+    key: "Square",
+    content: "Square"
+  },
+  {
+    key: "Rectangle",
+    content: "Rectangle"
+  },
+  {
+    key: "Triangle",
+    content: "Triangle"
+  },
+  {
+    key: "Circle",
+    content: "Circle"
+  },
+  {
+    key: "Oval",
+    content: "Oval"
+  },
+  {
+    key: "Diamond",
+    content: "Diamond"
+  },
+  {
+    key: "Heart",
+    content: "Heart"
+  },
+  {
+    key: "Star",
+    content: "Star"
   },
 ];
