@@ -20,15 +20,17 @@ export default async function (req, res) {
   const moral = req.body.moral || '';
   const holiday = req.body.holiday || '';
   const shape = req.body.shape || '';
+  const numb = req.body.numb || '';
 
 
   try {
     
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: generatePrompt(child, moral, holiday, shape),
-      temperature: 0.9,
-      max_tokens: 100
+      prompt: generatePrompt(child, moral, holiday, shape, numb),
+      temperature: 0.5,
+      max_tokens: 500,
+      echo: true
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch(error) {
@@ -47,7 +49,7 @@ export default async function (req, res) {
   }
 }
 
-function generatePrompt(child, moral, holiday, shape) {
+function generatePrompt(child, moral, holiday, shape, numbs) {
   
   var prompt_string = '';
 
@@ -55,13 +57,16 @@ function generatePrompt(child, moral, holiday, shape) {
     var prompt_string = `Moral of story: ${moral}`;
   }
   if (holiday.toLowerCase().indexOf("select") === -1 ) {
-    var prompt_string = `Holiday: ${holiday}`;
+    var prompt_string = `Celebrate holiday: ${holiday}`;
   }
   if (shape.toLowerCase().indexOf("select") === -1 ) {
-    var prompt_string = `Shape Learn: ${shape}`;
+    var prompt_string = `Kearn about shape: ${shape}`;
+  }
+  if (numbs.toLowerCase().indexOf("select") === -1 ) {
+    var prompt_string = `Learn about number: ${numbs}`;
   }
 
-  return `Make very short bedtime story based on information:
+  return `Write easy-to-read kid's bedtime story based on:
 
 Child name: ${child}
 ${prompt_string}

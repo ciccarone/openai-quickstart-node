@@ -11,6 +11,7 @@ import { Dropdown } from "@nextui-org/react";
 import { holidayMenuItems } from "./utils/MenuItems";
 import { moralMenuItems } from "./utils/MenuItems";
 import { shapeMenuItems } from "./utils/MenuItems";
+import { numbMenuItems } from "./utils/MenuItems";
 
 export default function Home(props) {
 
@@ -25,6 +26,9 @@ export default function Home(props) {
   );
   const [shapeInput, SetShapeInput] = React.useState(
     new Set(["Select Shape"])
+  );
+  const [numbInput, SetNumbInput] = React.useState(
+    new Set(["Select Number"])
   );
 
   const selectedHoliday = React.useMemo(
@@ -42,6 +46,11 @@ export default function Home(props) {
     [shapeInput]
   );
 
+  const selectedNumb = React.useMemo(
+    () => Array.from(numbInput).join(", ").replace("_", " "),
+    [numbInput]
+  );
+
   async function onSubmit(event) {
     event.preventDefault();
     try {
@@ -55,6 +64,7 @@ export default function Home(props) {
           moral: selectedMoral,
           holiday: selectedHoliday,
           shape: selectedShape,
+          numb: selectedNumb,
         }),
       });
 
@@ -198,10 +208,39 @@ export default function Home(props) {
                         </Dropdown.Menu>
                       </Dropdown>
                     </span>
+
+
+                  <Radio value="Numbs">Numbers</Radio>
+                              
+                    <span id="Numbs" className="story-dropdown">
+                      <Spacer y={.7} />
+                      <Dropdown>
+                        <Dropdown.Button
+                          flat
+                          color="secondary"
+                          css={{ tt: "capitalize" }}
+                        >
+                          {"Number: " + selectedNumb}
+                        </Dropdown.Button>
+                        <Dropdown.Menu
+                          aria-label="Single selection actions"
+                          color="secondary"
+                          disallowEmptySelection
+                          selectionMode="single"
+                          selectedKeys={numbInput}
+                          onSelectionChange={SetNumbInput}
+                          items={numbMenuItems}
+                        >
+                          {(item) => (
+                            <Dropdown.Item key={item.key}>
+                              {item.content}
+                            </Dropdown.Item>
+                          )}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </span>
                 </Radio.Group>
                 </Card>
-
-                {/* {Morals()} */}
 
 
 
@@ -209,7 +248,13 @@ export default function Home(props) {
                   Generate Story
                 </Button>
               </form>
+              <Spacer y={1.5} />
+              <Card
+                className="story-type-card"
+              >
+                <Spacer y={.7} />
               <div>{result}</div>
+              </Card>
             </Col>
           </Row>
         </Container>

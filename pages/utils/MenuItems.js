@@ -206,3 +206,47 @@ export const shapeMenuItems = [
     content: "Star"
   },
 ];
+
+export const numbMenuItems = [
+
+  {
+    key: "One",
+    content: "One"
+  },
+  {
+    key: "Two",
+    content: "Two"
+  },
+  {
+    key: "Three",
+    content: "Three"
+  },
+  {
+    key: "Four",
+    content: "Four"
+  },
+  {
+    key: "Five",
+    content: "Five"
+  },
+  {
+    key: "Six",
+    content: "Six"
+  },
+  {
+    key: "Seven",
+    content: "Seven"
+  },
+  {
+    key: "Eight",
+    content: "Eight"
+  },
+  {
+    key: "Nine",
+    content: "Nine"
+  },
+  {
+    key: "Ten",
+    content: "Ten"
+  },
+];
