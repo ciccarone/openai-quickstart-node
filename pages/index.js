@@ -14,22 +14,16 @@ import { shapeMenuItems } from "./utils/MenuItems";
 import { numbMenuItems } from "./utils/MenuItems";
 
 export default function Home(props) {
-
   const [childInput, SetChildNameInput] = useState("");
   const [result, setResult] = useState();
+  const [generateLoading, setGeneratingLoading] = useState(false);
 
-  const [moralInput, SetMoralInput] = React.useState(
-    new Set(["Select Moral"])
-  );
+  const [moralInput, SetMoralInput] = React.useState(new Set(["Select Moral"]));
   const [holidayInput, SetHolidayInput] = React.useState(
     new Set(["Select Holiday"])
   );
-  const [shapeInput, SetShapeInput] = React.useState(
-    new Set(["Select Shape"])
-  );
-  const [numbInput, SetNumbInput] = React.useState(
-    new Set(["Select Number"])
-  );
+  const [shapeInput, SetShapeInput] = React.useState(new Set(["Select Shape"]));
+  const [numbInput, SetNumbInput] = React.useState(new Set(["Select Number"]));
 
   const selectedHoliday = React.useMemo(
     () => Array.from(holidayInput).join(", ").replace("_", " "),
@@ -54,6 +48,7 @@ export default function Home(props) {
   async function onSubmit(event) {
     event.preventDefault();
     try {
+      setGeneratingLoading(true);
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
@@ -74,13 +69,15 @@ export default function Home(props) {
           data.error ||
           new Error(`Request failed with status ${response.status}`)
         );
+        setGeneratingLoading(false);
       }
 
       setResult(data.result);
-
+      setGeneratingLoading(false);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
+      setGeneratingLoading(false);
       alert(error.message);
     }
   }
@@ -100,29 +97,25 @@ export default function Home(props) {
               <h3>Generate your 2-minute bedtime story</h3>
               <form onSubmit={onSubmit}>
                 <Spacer y={1.5} />
-                <Card
-                  className="story-type-card"
-                >
-                  <Spacer y={.7} />
-                <Input
-                  clearable
-                  bordered
+                <Card className="story-type-card">
+                  <Spacer y={0.7} />
+                  <Input
+                    clearable
+                    bordered
                     label="Child's Name"
-                  type="text"
-                  name="child"
-                  value={childInput}
-                  onChange={(e) => SetChildNameInput(e.target.value)}
-                />
-                  <Spacer y={.7} />
+                    type="text"
+                    name="child"
+                    value={childInput}
+                    onChange={(e) => SetChildNameInput(e.target.value)}
+                  />
+                  <Spacer y={0.7} />
                 </Card>
-                <Card
-                  className="story-type-card story-type-card__name"
-                >
-                <Radio.Group label="Story Types" className="story-type">
-                  <Radio value="Morals">Morals</Radio>
+                <Card className="story-type-card story-type-card__name">
+                  <Radio.Group label="Story Types" className="story-type">
+                    <Radio value="Morals">Morals</Radio>
 
                     <span id="Morals" className="story-dropdown">
-                      <Spacer y={.7} />
+                      <Spacer y={0.7} />
                       <Dropdown>
                         <Dropdown.Button
                           flat
@@ -149,10 +142,10 @@ export default function Home(props) {
                       </Dropdown>
                     </span>
 
-                  <Radio value="Holidays">Holidays</Radio>
-                              
+                    <Radio value="Holidays">Holidays</Radio>
+
                     <span id="Holidays" className="story-dropdown">
-                      <Spacer y={.7} />
+                      <Spacer y={0.7} />
                       <Dropdown>
                         <Dropdown.Button
                           flat
@@ -179,10 +172,10 @@ export default function Home(props) {
                       </Dropdown>
                     </span>
 
-                  <Radio value="Shapes">Shapes</Radio>
-                              
+                    <Radio value="Shapes">Shapes</Radio>
+
                     <span id="Shapes" className="story-dropdown">
-                      <Spacer y={.7} />
+                      <Spacer y={0.7} />
                       <Dropdown>
                         <Dropdown.Button
                           flat
@@ -209,11 +202,10 @@ export default function Home(props) {
                       </Dropdown>
                     </span>
 
+                    <Radio value="Numbs">Numbers</Radio>
 
-                  <Radio value="Numbs">Numbers</Radio>
-                              
                     <span id="Numbs" className="story-dropdown">
-                      <Spacer y={.7} />
+                      <Spacer y={0.7} />
                       <Dropdown>
                         <Dropdown.Button
                           flat
@@ -239,21 +231,21 @@ export default function Home(props) {
                         </Dropdown.Menu>
                       </Dropdown>
                     </span>
-                </Radio.Group>
+                  </Radio.Group>
                 </Card>
-
-
 
                 <Button color="warning" type="submit" auto ghost>
                   Generate Story
                 </Button>
               </form>
               <Spacer y={1.5} />
-              <Card
-                className="story-type-card"
-              >
-                <Spacer y={.7} />
-              <div>{result}</div>
+              <Card className="story-type-card">
+                <Spacer y={0.7} />
+                {!generateLoading ? (
+                  <div>{result}</div>
+                ) : (
+                  <div>Story generating ...</div>
+                )}
               </Card>
             </Col>
           </Row>
